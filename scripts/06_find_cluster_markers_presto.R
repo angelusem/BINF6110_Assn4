@@ -52,3 +52,19 @@ FeaturePlot(obj, features = c("Flt1", "Pecam1", "Cdh5"))
 FeaturePlot(obj, features = c("Ctss", "Lyz2", "C1qa"))
 FeaturePlot(obj, features = c("Col1a1", "Col1a2", "Prrx1"))
 FeaturePlot(obj, features = c("Krt8", "Krt18", "Krt19"))
+
+# To connect that region to a numbered cluster, put the labeled cluster UMAP next to the feature plot and compare positions-- why would i do next- where did i get the above groups from??
+
+DimPlot(obj, reduction = "umap", label = TRUE, repel = TRUE)
+
+# dot plot for clearer view
+DotPlot(
+  obj,
+  features = c(
+    "Cnga4","Ano2","Adcy3",
+    "Flt1","Pecam1","Cdh5",
+    "Col1a1","Col1a2","Prrx1",
+    "Ctss","Lyz2","C1qa",
+    "Krt8","Krt18","Krt19"
+  )
+) + RotatedAxis()
