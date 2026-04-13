@@ -8,6 +8,14 @@ The main goals of this analysis were to identify major cell populations in the d
 
 ## Methods
 
+## Repository structure
+
+- `data/` — processed Seurat objects and intermediate R objects  
+- `scripts/` — analysis scripts  
+- `results/figures/` — generated figures used in the README/report  
+- `results/tables/` — output tables, marker tables, and DE results  
+- `renv/` and `renv.lock` — project-local package environment  
+
 ### Data input and project setup
 
 The analysis was performed in RStudio within an `renv`-managed project environment.
@@ -30,7 +38,7 @@ Cluster annotation was performed using two complementary approaches. First, Seur
 
 For downstream analysis, **cluster 1** was selected as the primary case study because both marker genes and SingleR supported a macrophage identity, and the RM Naive versus D02 comparison provided balanced mouse-level replication with adequate cell numbers per mouse. As a supporting comparison, **cluster 4** was analyzed because it showed a cleaner endothelial identity supported by both marker genes and SingleR.
 
-Cluster-specific differential expression was performed using a **pseudobulk** workflow. Cells were subset by cluster, tissue, and timepoint, then aggregated by `mouse_id` using `AggregateExpression()`. Mouse identity was used as the biological replicate unit. Differential expression was then performed with DESeq2 using the design `~ time`, with the main contrast defined as **D02 vs Naive**, so positive log2 fold change indicates higher expression in D02 and negative log2 fold change indicates higher expression in Naive. Log2 fold changes were then shrunk using `apeglm`, and MA and volcano plots were generated. Because many top-ranked genes in the full DE tables were ribosomal or mitochondrial, filtered interpretation tables excluding genes beginning with `Rpl`, `Rps`, and `mt-` were generated in addition to the full official DE tables.
+Cluster-specific differential expression was performed using a **pseudobulk** workflow. Cells were subset by cluster, tissue, and timepoint, then aggregated by `mouse_id` using `AggregateExpression()`. Mouse identity was used as the biological replicate unit. Differential expression was performed with DESeq2 using the design `~ time`, with the main contrast defined as **D02 vs Naive**, so positive log2 fold change indicates higher expression in D02 and negative log2 fold change indicates higher expression in Naive. Log2 fold changes were then shrunk using `apeglm`, and MA and volcano plots were generated. Because many top-ranked genes in the full DE tables were ribosomal or mitochondrial, filtered interpretation tables excluding genes beginning with `Rpl`, `Rps`, and `mt-` were generated in addition to the full official DE tables.
 
 ### Functional analysis
 
@@ -38,53 +46,85 @@ Functional interpretation was performed using ORA and GSEA with `clusterProfiler
 
 ## Results
 
-### Overall clustering and annotation
+ The dataset separated into 36 clusters with clear broad biological structure, after filtering and log-normalization-based clustering. Marker-based visualization and SingleR supported major compartments including neurons, macrophages, endothelial cells, fibroblasts, epithelial cells, B cells, T cells, NK cells, monocytes, and granulocytes. Broad labels were retained in the main interpretation to avoid overclaiming fine subtypes.
 
-After filtering and log-normalization-based clustering, the dataset separated into 36 clusters with clear broad biological structure. Marker-based visualization and SingleR supported major compartments including neurons, macrophages, endothelial cells, fibroblasts, epithelial cells, B cells, T cells, NK cells, monocytes, and granulocytes. Because the dataset and reference-based annotations most strongly supported broad identities rather than fine subtype mapping, the annotation strategy remained conservative throughout the analysis.
+![Figure 1](results/figures/umap_singler_pruned.png)
 
--   **Figure 1.** UMAP colored by cluster or broad SingleR label.\
--   **Figure 2.** Marker validation plot (dot plot or feature plot panel) showing representative neuronal, endothelial, macrophage/myeloid, stromal, and epithelial markers.
+**Figure 1. Broad SingleR-supported annotation of the clustered dataset.** UMAP of the filtered single-cell dataset colored by pruned SingleR cluster labels. The plot shows broad compartment-level structure across neuronal, myeloid, endothelial, stromal, epithelial, and lymphoid populations.
+
+![Figure 2](results/figures/final_gene_panel_combined.png)
+
+**Figure 2. Marker-based validation of broad cluster identities.** Combined marker panel used to validate broad biological compartments in the dataset. Representative neuronal, endothelial, macrophage/myeloid, stromal, and epithelial markers were used to support the conservative annotation strategy.
 
 ### Main downstream comparison: cluster 1 macrophages in RM, D02 vs Naive
 
-Cluster 1 was selected as the main downstream comparison because marker genes and SingleR supported a macrophage identity, and the RM Naive versus D02 contrast provided balanced mouse-level replication. Within RM, the cluster 1 subset contained three biological replicates per group, with D02 counts of 449, 193, and 208 cells and Naive counts of 481, 321, and 264 cells.
+Cluster 1 was selected as the primary case study because both marker genes and SingleR supported a macrophage identity, and the RM Naive versus D02 comparison retained three biological replicates per group with adequate cell counts in each mouse. Within RM cluster 1, D02 mouse-level counts were 449, 193, and 208 cells, while Naive counts were 481, 321, and 264 cells.
 
-Pseudobulk DESeq2 analysis identified a clear transcriptional shift between Naive and D02. In this comparison:
+Pseudobulk DESeq2 analysis identified a substantial transcriptional shift in this cluster. In the cluster 1 RM comparison:
 
--   **932 genes** had `padj < 0.05`
--   **131 genes** had `padj < 0.05` and `|log2FC| > 1`
--   **104 genes** were up in D02
--   **27 genes** were up in Naive
+- **932 genes** had `padj < 0.05`
+- **131 genes** had `padj < 0.05` and `|log2FC| > 1`
+- **104 genes** were up in D02
+- **27 genes** were up in Naive
 
-Many of the most statistically extreme genes in the full table were ribosomal or mitochondrial, so interpretation focused on a filtered set of more biologically interpretable genes. Among the D02-up genes, notable examples included **Plek**, **Ap2a2**, and **Ap2b1**.
+Many of the most statistically extreme genes in the unfiltered result table were ribosomal or mitochondrial, so interpretation emphasized filtered, more biologically interpretable genes. Examples of D02-up genes retained in interpretation included **Plek**, **Ap2a2**, and **Ap2b1**.
 
-ORA on the filtered D02-up gene set returned little support for broad GO Biological Process or Molecular Function themes, but GO Cellular Component identified a narrow repeated signal centered on **clathrin adaptor complex** and **clathrin vesicle coat**, driven mainly by **Ap2a2**, **Ap2b1**, and **Ap1s2**. GSEA on the ranked shrunk log2 fold change list gave a broader signal. On the Naive-up side, enriched terms included **translation-associated processes**, **oxidative phosphorylation**, **respiratory electron transport chain**, and **antigen processing and presentation**. On the D02-up side, enriched terms included **ion transport**, **carbohydrate metabolic process**, **extracellular matrix assembly**, and **export across plasma membrane**.
+ORA on filtered D02-up genes produced a narrow GO Cellular Component signal centered on **clathrin adaptor complex** and **clathrin vesicle coat**, driven mainly by **Ap2a2**, **Ap2b1**, and **Ap1s2**. GSEA produced a broader functional pattern. Naive-up enrichment included translation-associated processes, oxidative phosphorylation, respiratory electron transport, and antigen processing/presentation, whereas D02-up enrichment included ion transport, carbohydrate metabolic process, extracellular matrix assembly, and export across the plasma membrane.
 
--   **Figure 3.** MA plot for cluster 1 RM macrophages, D02 vs Naive.\
--   **Figure 4.** Volcano plot for cluster 1 RM macrophages, D02 vs Naive.\
--   **Figure 5.** ORA or GSEA plot for cluster 1 macrophages.\
--   **Figure 6.** Feature plots for selected genes of interest
+![Figure 3](results/figures/cluster1_RM_D02_vs_Naive_MA.png)
+
+**Figure 3. MA plot for cluster 1 RM macrophages, D02 vs Naive.** Mean expression is plotted against shrunk log2 fold change for pseudobulk differential expression in cluster 1 macrophages from RM. The plot shows a broad distribution of differential expression rather than a null comparison.
+
+![Figure 4](results/figures/cluster1_RM_D02_vs_Naive_volcano_shrunk.png)
+
+**Figure 4. Shrunk volcano plot for cluster 1 RM macrophages, D02 vs Naive.** Differential expression results after log2 fold-change shrinkage. This plot highlights the magnitude and significance of transcriptional differences while reducing noise from low-count genes.
+
+![Figure 5](results/figures/cluster1_ORA_CC.png)
+
+**Figure 5. ORA of filtered D02-up genes from cluster 1 RM macrophages.** GO Cellular Component over-representation analysis showed a narrow enrichment signal centered on clathrin adaptor and vesicle-coat-associated terms rather than broad process-level themes.
+
+![Figure 6](results/figures/final_gene_panel_vlnplot_clusters1_4.png)
+
+**Figure 6. Expression of selected genes in the two focal clusters.** Violin plots showing representative genes used to compare the macrophage-focused cluster 1 and endothelial-focused cluster 4. These plots support the contrasting biological interpretation of the two downstream case studies.
 
 ### Supporting comparison: cluster 4 endothelial cells in RM, D02 vs Naive
 
-Cluster 4 was analyzed as a supporting comparison because it showed a cleaner endothelial identity supported by both SingleR and endothelial marker genes. The RM Naive versus D02 pseudobulk comparison also produced a valid differential expression result:
+Cluster 4 was analyzed as a supporting comparison because it showed a cleaner endothelial identity than cluster 1. Marker genes and SingleR both supported this interpretation.
 
--   **637 genes** had `padj < 0.05`
--   **111 genes** had `padj < 0.05` and `|log2FC| > 1`
--   **107 interpretable strong-effect genes** remained after removal of ribosomal and mitochondrial genes
--   **82 strong-effect genes** were up in D02
--   **29 strong-effect genes** were up in Naive
+The RM cluster 4 pseudobulk comparison also produced a valid differential expression result:
 
-Interpretable D02-up genes included **Hes1**, **Cd200**, **Nmt1**. However, the enrichment narrative seemed narrower than in cluster 1. GO Biological Process and Molecular Function ORA returned no significant terms, while GO Cellular Component identified only a small AP-2/clathrin-associated vesicle signal once more driven by **Ap2a2** and **Ap2b1**. GSEA also returned a more limited result, with **mitochondrial translation** enriched on the Naive-up side.
+- **637 genes** had `padj < 0.05`
+- **111 genes** had `padj < 0.05` and `|log2FC| > 1`
+- **107 interpretable strong-effect genes** remained after excluding ribosomal and mitochondrial genes
+- **82 strong-effect genes** were up in D02
+- **29 strong-effect genes** were up in Naive
 
-These results made cluster 4 useful as a cleaner comparison cluster, but biologically less rich than cluster 1.
+Interpretable D02-up genes included **Hes1**, **Cd200**, and **Nmt1**. However, the enrichment narrative was narrower than in cluster 1. GO Biological Process and Molecular Function ORA returned no significant terms, while GO Cellular Component again suggested a small clathrin/AP-2-associated signal. GSEA was also more limited, with **mitochondrial translation** enriched on the Naive-up side.
 
--   **Supplementary Figure 1.** MA or volcano plot for cluster 4 RM endothelial cells, D02 vs Naive.\
--   **Supplementary Figure 2.** Feature plots showing endothelial markers and selected cluster 4 DE genes.
+These results made cluster 4 useful as a cleaner supporting comparison, but less biologically rich than cluster 1.
 
-### Overall analytical outcome
+![Figure 7](results/figures/cluster4_endothelial_markers_featureplot.png)
 
-Taken together, the analysis recovered broad biologically coherent cell populations and demonstrated that early influenza-associated transcriptional changes could be detected in a cluster-specific manner using mouse-level pseudobulk differential expression. Cluster 1 macrophages provided the richer biological case study, while cluster 4 endothelial cells served as a cleaner but narrower supporting comparison.
+**Figure 7. Endothelial marker validation for cluster 4.** Feature plots showing canonical endothelial markers used to support cluster 4 as an endothelial population.
+
+![Figure 8](results/figures/cluster4_RM_D02_vs_Naive_volcano.png)
+
+**Figure 8. Volcano plot for cluster 4 RM endothelial cells, D02 vs Naive.** Pseudobulk differential expression results for the endothelial-focused supporting comparison.
+
+![Figure 9](results/figures/cluster4_ORA_CC.png)
+
+**Figure 9. ORA of filtered D02-up genes from cluster 4 RM endothelial cells.** GO Cellular Component over-representation analysis for cluster 4 showed a narrower enrichment profile than cluster 1, again dominated by vesicle/clathrin-associated terms.
+
+### Descriptive cell composition analysis
+
+A descriptive composition analysis was also used to compare the relative abundance of **cluster 1 macrophages** and **cluster 4 endothelial cells** among RM cells in Naive and D02 samples. This was treated as a visual summary rather than a formal statistical compositional test.
+
+The plot suggested a larger between-group shift for cluster 1 macrophages than for cluster 4 endothelial cells, consistent with the stronger biological signal recovered in the cluster 1 transcriptional analysis.
+
+![Figure 10](results/figures/cluster_composition_RM_clusters1_4_points_only.png)
+
+**Figure 10. Per-mouse proportions of focal RM clusters in Naive and D02 samples.** Points represent individual mice, and black diamonds represent the group mean of the per-mouse proportions. Cluster 1 macrophages show the larger descriptive shift between groups, whereas cluster 4 endothelial cells show a smaller relative-abundance difference.
+
 
 ## Discussion
 
@@ -95,3 +135,4 @@ Cluster 4 endothelial cells helped contextualize the macrophage result. This clu
 Several limitations should also be noted. First, the final cluster annotations were intentionally broad because the dataset and reference-based methods did not justify fine subtype claims with high confidence. Second, local memory limitations prevented SCTransform from being used in the final pipeline, so a log-normalization workflow was adopted instead. Third, many highly ranked DE genes were not ideal narrative anchors, making filtered interpretation tables and pathway-level summaries more informative than raw ranking alone. Finally, enrichment results were uneven across clusters, so the biological interpretation relies on the overall pattern across DE, ORA, and GSEA rather than any single result table.
 
 ## References
+
