@@ -58,7 +58,7 @@ Functional interpretation was performed using ORA and GSEA with `clusterProfiler
 
 **Figure 1. UMAP of the clustered dataset.** UMAP of the filtered single-cell RNA-seq dataset after log-normalization, PCA, neighbor graph construction, and clustering in Seurat. Cells are colored by Seurat cluster identity, and numeric labels indicate the 36 clusters used for downstream annotation and comparison. 
 
-![Figure 2](results/figures/final_gene_panel_combined.png)
+![Figure 2](results/figures/umap_singler_pruned.png)
 
 **Figure 2. Broad SingleR-supported annotation of the clustered dataset.** UMAP of the filtered single-cell dataset colored by pruned SingleR cluster labels. The plot shows broad compartment-level structure across neuronal, myeloid, endothelial, stromal, epithelial, and lymphoid populations.
 
