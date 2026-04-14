@@ -55,10 +55,10 @@ mac_rm_counts <- mac_rm[[]] %>%
 mac_rm_counts
 write.csv(mac_rm_counts, "results/tables/cluster1_RM_Naive_vs_D02_cell_counts.csv", row.names = FALSE)
 
-# use mouse_id as pseudobulk sample ID
+# using mouse_id as pseudobulk sample ID
 mac_rm$pb_id <- mac_rm$mouse_id
 
-# aggregate raw counts by mouse
+# aggregating raw counts by mouse
 pb <- AggregateExpression(
   mac_rm,
   assays = "RNA",
@@ -66,10 +66,10 @@ pb <- AggregateExpression(
   return.seurat = TRUE
 )
 
-# extract pseudobulk count matrix
+# extracting pseudobulk count matrix
 pb_counts <- GetAssayData(pb, assay = "RNA", layer = "counts")
 
-# build sample metadata
+# building sample metadata
 col_data <- mac_rm[[]] %>%
   as_tibble() %>%
   select(pb_id, mouse_id, time, organ_custom) %>%
@@ -85,21 +85,21 @@ col_data <- mac_rm[[]] %>%
   dplyr::select(pb_id, mouse_id, time, organ_custom) %>%
   dplyr::distinct()
 
-# match Seurat's underscore-to-dash conversion
+# matching Seurat's underscore-to-dash conversion
 col_data <- col_data %>%
   dplyr::mutate(pb_id = gsub("_", "-", pb_id))
 
-# order metadata to match pseudobulk columns
+# ordering metadata to match pseudobulk columns
 col_data <- col_data %>%
   dplyr::slice(match(colnames(pb_counts), pb_id))
 
-# convert to plain data.frame before rownames
+# converting to plain data.frame before rownames
 col_data <- as.data.frame(col_data)
 rownames(col_data) <- col_data$pb_id
 
 # then
 
-# reorder count matrix to match metadata
+# reordering count matrix to match metadata
 pb_counts <- pb_counts[, rownames(col_data)]
 
 # ensuring that time is a factor before building dds to keep the reference level explicit
@@ -112,10 +112,10 @@ dds <- DESeqDataSetFromMatrix(
   design = ~ time
 )
 
-# prefilter low-count genes
+# prefilter of low-count genes
 dds <- dds[rowSums(counts(dds)) >= 10, ]
 
-# run DE
+# running DE
 dds <- DESeq(dds)
 
 res <- results(dds, contrast = c("time", "D02", "Naive")) %>%
@@ -125,10 +125,10 @@ res <- results(dds, contrast = c("time", "D02", "Naive")) %>%
 
 write.csv(res, "results/tables/cluster1_RM_D02_vs_Naive_DESeq2.csv", row.names = FALSE)
 
-# save full DESeq object too
+# saving full DESeq object too
 saveRDS(dds, "results/tables/cluster1_RM_D02_vs_Naive_dds.rds")
 
-# inspect top hits
+# inspecting top hits
 head(res, 20)
 summary(res)
 # one quick DE plot-- before making the interpretable table

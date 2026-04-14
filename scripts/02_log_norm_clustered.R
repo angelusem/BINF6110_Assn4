@@ -9,7 +9,7 @@ obj[["percent.mt"]] <- PercentageFeatureSet(obj, pattern = "^mt-")
 obj <- subset(obj, subset = mouse_id != "")
 obj <- subset(obj, subset = nFeature_RNA > 200 & percent.mt < 20)
 
-# lighter normalization path from lecture workflow
+# lighter normalization path 
 obj <- NormalizeData(obj, normalization.method = "LogNormalize")
 obj <- FindVariableFeatures(obj, selection.method = "vst", nfeatures = 2000)
 obj <- ScaleData(
