@@ -52,15 +52,15 @@ Functional interpretation was performed using ORA and GSEA with `clusterProfiler
 
 ## Results
 
- The dataset separated into 36 clusters with clear broad biological structure, after filtering and log-normalization-based clustering. Marker-based visualization and SingleR supported major compartments including neurons, macrophages, endothelial cells, fibroblasts, epithelial cells, B cells, T cells, NK cells, monocytes, and granulocytes. Broad labels were retained in the main interpretation to avoid overclaiming fine subtypes.
+ The dataset separated into 36 clusters with clear broad biological structure, after filtering and log-normalization-based clustering. Marker-based visualization and SingleR supported major compartments including neurons, macrophages, endothelial cells, fibroblasts, epithelial cells, B cells, T cells, NK cells, monocytes, and granulocytes. Broad labels were retained in the main interpretation to avoid overclaiming fine subtypes (Figure 1 and 2).
 
-![Figure 1](results/figures/umap_singler_pruned.png)
+![Figure 1](results/figures/umap_clusters_numbered.png)
 
-**Figure 1. Broad SingleR-supported annotation of the clustered dataset.** UMAP of the filtered single-cell dataset colored by pruned SingleR cluster labels. The plot shows broad compartment-level structure across neuronal, myeloid, endothelial, stromal, epithelial, and lymphoid populations.
+**Figure 1. UMAP of the clustered dataset.** UMAP of the filtered single-cell RNA-seq dataset after log-normalization, PCA, neighbor graph construction, and clustering in Seurat. Cells are colored by Seurat cluster identity, and numeric labels indicate the 36 clusters used for downstream annotation and comparison. 
 
 ![Figure 2](results/figures/final_gene_panel_combined.png)
 
-**Figure 2. Marker-based validation of broad cluster identities.** Combined marker panel used to validate broad biological compartments in the dataset. Representative neuronal, endothelial, macrophage/myeloid, stromal, and epithelial markers were used to support the conservative annotation strategy.
+**Figure 2. Broad SingleR-supported annotation of the clustered dataset.** UMAP of the filtered single-cell dataset colored by pruned SingleR cluster labels. The plot shows broad compartment-level structure across neuronal, myeloid, endothelial, stromal, epithelial, and lymphoid populations.
 
 ### Main downstream comparison: cluster 1 macrophages in RM, D02 vs Naive
 
@@ -75,7 +75,7 @@ Pseudobulk DESeq2 analysis identified a substantial transcriptional shift in thi
 
 Many of the most statistically extreme genes in the unfiltered result table were ribosomal or mitochondrial, so interpretation emphasized filtered, more biologically interpretable genes. 
 
-ORA on filtered D02-up genes produced a narrow GO Cellular Component signal centered on **clathrin adaptor complex** and **clathrin vesicle coat**, driven mainly by **Ap2a2**, **Ap2b1**, and **Ap1s2** (Figure 5). GSEA produced a broader functional pattern (Supplementary Figure). Naive-up enrichment included translation-associated processes, oxidative phosphorylation, respiratory electron transport, and antigen processing/presentation, whereas D02-up enrichment included ion transport, carbohydrate metabolic process, extracellular matrix assembly, and export across the plasma membrane.
+ORA on filtered D02-up genes produced a narrow GO Cellular Component signal centered on **clathrin adaptor complex** and **clathrin vesicle coat**, driven mainly by **Ap2a2**, **Ap2b1**, and **Ap1s2** (Figure 5). GSEA produced a broader functional pattern (Figure 6). Naive-up enrichment included translation-associated processes, oxidative phosphorylation, respiratory electron transport, and antigen processing/presentation, whereas D02-up enrichment included ion transport, carbohydrate metabolic process, extracellular matrix assembly, and export across the plasma membrane.
 
 ![Figure 3](results/figures/cluster1_RM_D02_vs_Naive_MA.png)
 
@@ -88,6 +88,10 @@ ORA on filtered D02-up genes produced a narrow GO Cellular Component signal cent
 ![Figure 5](results/figures/cluster1_ORA_CC.png)
 
 **Figure 5. ORA of filtered D02-up genes from cluster 1 RM macrophages.** GO Cellular Component over-representation analysis showed a narrow enrichment signal centered on clathrin adaptor and vesicle-coat-associated terms rather than broad process-level themes.
+
+![Figure 6](results/figures/cluster1_GSEA_BP.png)
+
+**Figure 5. GSEA of cluster 1 RM macrophages, D02 vs Naive.**  Dot plot of GO Biological Process gene set enrichment analysis for ranked pseudobulk differential-expression results from cluster 1 macrophages in respiratory mucosa. This comparison showed a broader enrichment pattern than cluster 4, with terms spanning translation-associated processes, electron transport and oxidative phosphorylation, antigen presentation, extracellular matrix assembly, and ion or carbohydrate transport
 
 
 ### Supporting comparison: cluster 4 endothelial cells in RM, D02 vs Naive
@@ -102,21 +106,26 @@ The RM cluster 4 pseudobulk comparison also produced a valid differential expres
 - **82 strong-effect genes** were up in D02
 - **29 strong-effect genes** were up in Naive
 
-Interpretable D02-up genes included **Hes1** and **Cd200**. However, the enrichment narrative was narrower than in cluster 1. GO Biological Process and Molecular Function ORA returned no significant terms, while GO Cellular Component again suggested a small clathrin/AP-2-associated signal (Figure 8). GSEA was also more limited, with **mitochondrial translation** enriched on the Naive-up side (Supplementary Figures).
+Interpretable D02-up genes included **Hes1** and **Cd200**. However, the enrichment narrative was narrower than in cluster 1. GO Biological Process and Molecular Function ORA returned no significant terms, while GO Cellular Component again suggested a small clathrin/AP-2-associated signal (Figure 9). GSEA was also more limited, with **mitochondrial translation** enriched on the Naive-up side (Figure 10).
 
 These results made cluster 4 useful as a cleaner supporting comparison, but less biologically rich than cluster 1.
 
-![Figure 6](results/figures/cluster4_endothelial_markers_featureplot.png)
+![Figure 7](results/figures/cluster4_RM_D02_vs_Naive_MA.png)
 
-**Figure 6. Endothelial marker validation for cluster 4.** Feature plots showing canonical endothelial markers used to support cluster 4 as an endothelial population.
+**Figure 7. MA plot for cluster 4 RM endothelial cells, D02 vs Naive** . MA plot of pseudobulk DESeq2 results for cluster 4 endothelial cells from respiratory mucosa comparing D02 and Naive samples. Each point represents one gene, with significant genes highlighted, showing a detectable but more limited transcriptional shift than in the cluster 1 macrophage comparison.
 
-![Figure 7](results/figures/cluster4_RM_D02_vs_Naive_volcano.png)
+![Figure 8](results/figures/cluster4_RM_D02_vs_Naive_volcano.png)
 
-**Figure 7. Volcano plot for cluster 4 RM endothelial cells, D02 vs Naive.** Pseudobulk differential expression results for the endothelial-focused supporting comparison.
+**Figure 8. Volcano plot for cluster 4 RM endothelial cells, D02 vs Naive.** Pseudobulk differential expression results for the endothelial-focused supporting comparison.
 
-![Figure 8](results/figures/cluster4_ORA_CC.png)
+![Figure 9](results/figures/cluster4_ORA_CC.png)
 
-**Figure 8. ORA of filtered D02-up genes from cluster 4 RM endothelial cells.** GO Cellular Component over-representation analysis for cluster 4 showed a narrower enrichment profile than cluster 1, again dominated by vesicle/clathrin-associated terms.
+**Figure 9. ORA of filtered D02-up genes from cluster 4 RM endothelial cells.** GO Cellular Component over-representation analysis for cluster 4 showed a narrower enrichment profile than cluster 1, again dominated by vesicle/clathrin-associated terms.
+
+![Figure 10](results/figures/cluster4_GSEA_BP.png)
+
+**Figure 10.GSEA of cluster 4 RM endothelial cells, D02 vs Naive.**
+Dot plot of GO Biological Process gene set enrichment analysis for ranked pseudobulk differential-expression results from cluster 4 endothelial cells in respiratory mucosa. In contrast to cluster 1, cluster 4 produced a limited enrichment profile, with mitochondrial translation as the only significant GO Biological Process term.
 
 ### Descriptive cell composition analysis
 

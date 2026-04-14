@@ -6,17 +6,17 @@ library(SingleR)
 library(celldex)
 library(dplyr)
 
-# load your clustered object
+# loading clustered object
 obj <- readRDS("data/seurat_ass4_lognorm_clustered.rds")
 Idents(obj) <- "seurat_clusters"
 
-# use the log-normalized RNA data for annotation
+# using the log-normalized RNA data for annotation
 expr_mat <- GetAssayData(obj, assay = "RNA", layer = "data")
 
 # mouse reference
 ref <- MouseRNAseqData()
 
-# annotate clusters, not individual cells
+# annotating clusters, not individual cells
 cluster_pred <- SingleR(
   test = expr_mat,
   ref = ref,
@@ -24,7 +24,7 @@ cluster_pred <- SingleR(
   clusters = obj$seurat_clusters
 )
 
-# make a clean results table
+# clean results table
 cluster_labels <- data.frame(
   cluster = rownames(cluster_pred),
   singler_label = cluster_pred$labels,
@@ -43,7 +43,7 @@ write.csv(
   row.names = FALSE
 )
 
-# map SingleR labels back onto the Seurat object
+# mapping SingleR labels back onto the Seurat object
 obj$SingleR_label <- cluster_labels$singler_label[
   match(as.character(obj$seurat_clusters), cluster_labels$cluster)
 ]
@@ -52,7 +52,7 @@ obj$SingleR_pruned <- cluster_labels$singler_pruned[
   match(as.character(obj$seurat_clusters), cluster_labels$cluster)
 ]
 
-# save the updated object
+# saving the updated object
 saveRDS(obj, "data/seurat_ass4_lognorm_clustered_singler.rds")
 
 # UMAP colored by SingleR labels
@@ -91,7 +91,7 @@ ggsave(
   dpi = 300
 )
 
-# optional: score heatmap
+# score heatmap
 pdf("results/figures/singler_score_heatmap.pdf", width = 10, height = 8)
 plotScoreHeatmap(cluster_pred)
 dev.off()

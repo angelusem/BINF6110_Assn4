@@ -6,6 +6,9 @@ library(dplyr)
 library(DESeq2)
 library(tibble)
 library(ggplot2)
+library(apeglm)
+library(clusterProfiler)
+library(org.Mm.eg.db)
 
 dir.create("results/tables", recursive = TRUE, showWarnings = FALSE)
 dir.create("results/figures", recursive = TRUE, showWarnings = FALSE)
@@ -131,7 +134,7 @@ cat("up in Naive:", nrow(sig_down), "\n")
 head(res_sig_interpretable, 30)
 
 # 2. making my plots: MA and volcano
-library(apeglm)
+
 
 # shrink log2 fold changes
 res_lfc <- lfcShrink(dds, coef = "time_D02_vs_Naive", type = "apeglm")
@@ -246,8 +249,6 @@ ggsave(
 
 # 4. Enrichment analysis
 # A. ORA
-library(clusterProfiler)
-library(org.Mm.eg.db)
 
 sig_up_interpretable <- res_shrunk %>%
   dplyr::filter(!is.na(padj), padj < 0.05, log2FoldChange > 1) %>%
@@ -366,3 +367,19 @@ gsea_bp <- gseGO(
 write.csv(as.data.frame(gsea_bp), "results/tables/cluster4_RM_D02_vs_Naive_GSEA_BP.csv", row.names = FALSE)
 
 head(as.data.frame(gsea_bp), 20)
+# saving the figure 
+gsea_bp_cl4 <- gsea_bp
+p_gsea_cl4 <- dotplot(
+  gsea_bp_cl4,
+  showCategory = 20,
+  title = "Cluster 4: GSEA GO BP"
+)
+
+ggsave(
+  filename = "results/figures/cluster4_GSEA_BP.png",
+  plot = p_gsea_cl4,
+  width = 9,
+  height = 7,
+  dpi = 300
+)
+

@@ -28,7 +28,7 @@ sample_summary <- obj[[]] %>%
 sample_summary
 write.csv(sample_summary, "results/tables/sample_summary.csv", row.names = FALSE)
 
-# 5. Check mitochondrial gene naming before QC
+# 5. Checking mitochondrial gene naming before QC
 sum(grepl("^mt-", rownames(obj)))
 sum(grepl("^MT-", rownames(obj)))
 head(rownames(obj), 20)
