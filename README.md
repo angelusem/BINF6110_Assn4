@@ -170,27 +170,48 @@ Several limitations should also be noted. First, the final cluster annotations w
 ## References
 
 Boucrot, E., Saffarian, S., Zhang, R., & Kirchhausen, T. (2010). Roles of AP-2 in Clathrin-Mediated Endocytosis. PLoS ONE, 5(5), e10597. https://doi.org/10.1371/journal.pone.0010597 
+
 Carlson, M. (2017). Org.Mm.eg.db [Computer software]. Bioconductor. https://doi.org/10.18129/B9.BIOC.ORG.MM.EG.DB 
+
 Clarke, Z. A., Andrews, T. S., Atif, J., Pouyabahar, D., Innes, B. T., MacParland, S. A., & Bader, G. D. (2021). Tutorial: Guidelines for annotating single-cell transcriptomic maps using automated and manual methods. Nature Protocols, 16(6), 2749–2764. https://doi.org/10.1038/s41596-021-00534-0 
+
 Foo, C. X., Bartlett, S., Chew, K. Y., Ngo, M. D., Bielefeldt-Ohmann, H., Arachchige, B. J., Matthews, B., Reed, S., Wang, R., Smith, C., Sweet, M. J., Burr, L., Bisht, K., Shatunova, S., Sinclair, J. E., Parry, R., Yang, Y., Lévesque, J.-P., Khromykh, A., … Ronacher, K. (2023). GPR183 antagonism reduces macrophage infiltration in influenza and SARS-CoV-2 infection. European Respiratory Journal, 61(3), 2201306. https://doi.org/10.1183/13993003.01306-2022 
+
 Fujioka, Y., Tsuda, M., Nanbo, A., Hattori, T., Sasaki, J., Sasaki, T., Miyazaki, T., & Ohba, Y. (2013). A Ca2+-dependent signalling circuit regulates influenza A virus internalization and infection. Nature Communications, 4(1), 2763. https://doi.org/10.1038/ncomms3763 
+
 Geistlinger, L., Csaba, G., Santarelli, M., Ramos, M., Schiffer, L., Turaga, N., Law, C., Davis, S., Carey, V., Morgan, M., Zimmer, R., & Waldron, L. (2021). Toward a gold standard for benchmarking gene set enrichment analysis. Briefings in Bioinformatics, 22(1), 545–556. https://doi.org/10.1093/bib/bbz158 
+
 Hao, Y., Stuart, T., Kowalski, M. H., Choudhary, S., Hoffman, P., Hartman, A., Srivastava, A., Molla, G., Madad, S., Fernandez-Granda, C., & Satija, R. (2024). Dictionary learning for integrative, multimodal and scalable single-cell analysis. Nature Biotechnology, 42(2), 293–304. https://doi.org/10.1038/s41587-023-01767-y 
+
 Huang, Q., Liu, Y., Du, Y., & Garmire, L. X. (2021). Evaluation of Cell Type Annotation R Packages on Single-Cell RNA-Seq Data. Genomics, Proteomics & Bioinformatics, 19(2), 267–281. https://doi.org/10.1016/j.gpb.2020.07.004 
+
 Kalucka, J., De Rooij, L. P. M. H., Goveia, J., Rohlenova, K., Dumas, S. J., Meta, E., Conchinha, N. V., Taverna, F., Teuwen, L.-A., Veys, K., García-Caballero, M., Khan, S., Geldhof, V., Sokol, L., Chen, R., Treps, L., Borri, M., De Zeeuw, P., Dubois, C., … Carmeliet, P. (2020). Single-Cell Transcriptome Atlas of Murine Endothelial Cells. Cell, 180(4), 764-779.e20. https://doi.org/10.1016/j.cell.2020.01.015 
+
 Kazer, S. W., Match, C. M., Langan, E. M., Messou, M.-A., LaSalle, T. J., O’Leary, E., Marbourg, J., Naughton, K., Von Andrian, U. H., & Ordovas-Montanes, J. (2024). Primary nasal influenza infection rewires tissue-scale memory response dynamics. Immunity, 57(8), 1955-1974.e8. https://doi.org/10.1016/j.immuni.2024.06.005 
+
 Kierdorf, K., Prinz, M., Geissmann, F., & Gomez Perdiguero, E. (2015). Development and function of tissue resident macrophages in mice. Seminars in Immunology, 27(6), 369–378. https://doi.org/10.1016/j.smim.2016.03.017 
 Kitagawa, M., Hojo, M., Imayoshi, I., Goto, M., Ando, M., Ohtsuka, T., Kageyama, R., & Miyamoto, S. (2013). Hes1 and Hes5 regulate vascular remodeling and arterial specification of endothelial cells in brain vascular development. Mechanisms of Development, 130(9–10), 458–466. https://doi.org/10.1016/j.mod.2013.07.001 
-Ko, Y., Chien, H., Jiang‐Shieh, Y., Chang, C., Pai, M., Huang, J., Chen, H., & Wu, C. (2009). Endothelial CD200 is heterogeneously distributed, regulated and involved in immune cell–endothelium interactions. Journal of Anatomy, 214(1), 183–195. https://doi.org/10.1111/j.1469-7580.2008.00986.x 
+
+Ko, Y., Chien, H., Jiang‐Shieh, Y., Chang, C., Pai, M., Huang, J., Chen, H., & Wu, C. (2009). Endothelial CD200 is heterogeneously distributed, regulated and involved in immune cell–endothelium interactions. Journal of Anatomy, 214(1), 183–195.
+https://doi.org/10.1111/j.1469-7580.2008.00986.x 
+
 Korsunsky, I., Millard, N., Fan, J., Slowikowski, K., Zhang, F., Wei, K., Baglaenko, Y., Brenner, M., Loh, P., & Raychaudhuri, S. (2019). Fast, sensitive and accurate integration of single-cell data with Harmony. Nature Methods, 16(12), 1289–1296. https://doi.org/10.1038/s41592-019-0619-0 
+
 Love, M. I., Huber, W., & Anders, S. (2014). Moderated estimation of fold change and dispersion for RNA-seq data with DESeq2. Genome Biology, 15(12), 550. https://doi.org/10.1186/s13059-014-0550-8 
+
 Mifsud, E. J., Kuba, M., & Barr, I. G. (2021). Innate Immune Responses to Influenza Virus Infections in the Upper Respiratory Tract. Viruses, 13(10), 2090. https://doi.org/10.3390/v13102090 
+
 Murphy, A. E., & Skene, N. G. (2022). A balanced measure shows superior performance of pseudobulk methods in single-cell RNA-sequencing analysis. Nature Communications, 13(1), 7851. https://doi.org/10.1038/s41467-022-35519-4 
+
 Ren, L., Zhang, W., Zhang, J., Zhang, J., Zhang, H., Zhu, Y., Meng, X., Yi, Z., & Wang, R. (2021). Influenza A Virus (H1N1) Infection Induces Glycolysis to Facilitate Viral Replication. Virologica Sinica, 36(6), 1532–1542. https://doi.org/10.1007/s12250-021-00433-4 
+
 Subramanian, A., Tamayo, P., Mootha, V. K., Mukherjee, S., Ebert, B. L., Gillette, M. A., Paulovich, A., Pomeroy, S. L., Golub, T. R., Lander, E. S., & Mesirov, J. P. (2005). Gene set enrichment analysis: A knowledge-based approach for interpreting genome-wide expression profiles. Proceedings of the National Academy of Sciences, 102(43), 15545–15550. https://doi.org/10.1073/pnas.0506580102 
+
 Xu, S., Hu, E., Cai, Y., Xie, Z., Luo, X., Zhan, L., Tang, W., Wang, Q., Liu, B., Wang, R., Xie, W., Wu, T., Xie, L., & Yu, G. (2024). Using clusterProfiler to characterize multiomics data. Nature Protocols, 19(11), 3292–3320. https://doi.org/10.1038/s41596-024-01020-z 
+
 Zhu, A., Ibrahim, J. G., & Love, M. I. (2019). Heavy-tailed prior distributions for sequence count data: Removing the noise and preserving large differences. Bioinformatics, 35(12), 2084–2092. https://doi.org/10.1093/bioinformatics/bty895 
+
 Zimmerman, K. D., Espeland, M. A., & Langefeld, C. D. (2021). A practical solution to pseudoreplication bias in single-cell studies. Nature Communications, 12(1), 738. https://doi.org/10.1038/s41467-021-21038-1 
 
-
+## end!
 
