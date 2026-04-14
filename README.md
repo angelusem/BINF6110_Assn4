@@ -133,7 +133,7 @@ A descriptive composition analysis was also used to compare the relative abundan
 
 The plot suggested a larger between-group shift for cluster 1 macrophages than for cluster 4 endothelial cells, consistent with the stronger biological signal recovered in the cluster 1 transcriptional analysis.
 
-![Figure 9](results/figures/cluster_composition_RM_clusters1_4_points_only.png)
+![Figure 9](results/figures/cluster_composition_RM_clusters1_4.png)
 
 **Figure 9. Per-mouse proportions of focal RM clusters in Naive and D02 samples.** Points represent individual mice, and black diamonds represent the group mean of the per-mouse proportions. Cluster 1 macrophages show the larger descriptive shift between groups, whereas cluster 4 endothelial cells show a smaller relative-abundance difference.
 
